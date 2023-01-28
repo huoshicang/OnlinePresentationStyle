@@ -1,91 +1,130 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div class="main">
+    <div class="top">
+      <ul>
+        <li
+          v-for="(project, index) in projects"
+          :key="index"
+          @click="cli(project, index)"
+          :class="[active == index ? 'active' : '']"
+        >
+          <a :href="'#' + project.name">{{ project.name }}</a>
+        </li>
+      </ul>
     </div>
-  </header>
-
-  <RouterView />
+    <div class="buttom">
+      <component :is="comId"></component>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script setup lang="ts">
+import { ref, reactive } from "vue";
+import Flex from "./components/Flex.vue";
+import Box from "./components/Box.vue";
+import Text from "./components/Text.vue";
+import Box_shadow from "./components/Box_shadow.vue";
+import Font_shadow from "./components/Font_shadow.vue";
+import Opacity from "./components/Opacity.vue";
+type data = {
+  name: string;
+  flage: any;
+};
+const projects = reactive<data[]>([
+  {
+    name: "Flex",
+    flage: Flex,
+  },
+  {
+    name: "Box",
+    flage: Box,
+  },
+  {
+    name: "Text",
+    flage: Text,
+  },
+  {
+    name: "Box_shadow",
+    flage: Box_shadow,
+  },
+  {
+    name: "Font_shadow",
+    flage: Font_shadow,
+  },
+  {
+    name: "Opacity",
+    flage: Opacity,
+  },
+]);
+
+const comId = ref(),
+  active = ref();
+const cli = (item: any, index: number) => {
+  comId.value = item.flage;
+  active.value = index;
+};
+</script>
+
+<style scoped lange="less">
+@media (max-width: 1000px) {
+  .top {
+    margin: 50px;
+  }
+  .top ul {
+    flex-direction: column;
+  }
+  .buttom {
+    height: 1728px;
+    width: 600px;
+  }
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
+.main {
+  display: flex;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  overflow-x: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
 }
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.buttom {
+  height: 600px;
+  width: 90%;
 }
-
-nav a {
+.top a {
   display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  width: 100%;
+  height: 100%;
+  color: rgb(79, 208, 131);
+  font-weight: bold;
+  text-align: center;
+  line-height: 60px;
+  transition: all 0.2s cubic-bezier(0.22, 0.02, 0.9, 0.75);
+  border-radius: 5px;
 }
-
-nav a:first-of-type {
-  border: 0;
+.top ul {
+  display: flex;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.top ul li {
+  height: 60px;
+  width: 200px;
+  border: 2px solid #ccc;
+  margin: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  font-size: 17px;
+}
+.top ul li a:hover {
+  color: #fff;
+  background-color: #ccc;
+}
+.active a {
+  font-size: 25px;
 }
 </style>
