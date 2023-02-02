@@ -75,11 +75,11 @@
                 </div>
                 <div class="itelli last">
                     <span>border</span>
-                    <Slider style="width: 300px" v-model="borderValue" @on-input="borderFun(borderValue)"></Slider>
-                    <Select v-model="model" style="width: 250px">
+                    <Slider style="width: 300px" v-model="borderValue" @on-input="borderFun"></Slider>
+                    <Select v-model="model" @on-change="borderFun" style="width: 250px">
                         <Option v-for="item in borderList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                     </Select>
-                    <ColorPicker class="color" v-model="borderColor" alpha @on-change="borderColorFun(borderColor)" />
+                    <ColorPicker class="color" v-model="borderColor" alpha @on-change="borderFun" />
                 </div>
                 <div class="itelli">
                     <span>backgroundColor</span>
@@ -156,7 +156,6 @@ export default {
             model: "none",
 
             borderValue: 10,
-            borderStyle: null,
             borderColor: "rgba(0, 0,0, 0.5)",
             bgColor: "rgba(166, 166, 166, 1.0)",
         };
@@ -178,7 +177,11 @@ export default {
             } else if (heights > widths) {
                 this.borderRadiuMax = widths;
             }
-            this.$refs.effect.style.borderRadius = borderRadiu + "px";
+            (this.topLeftValue = 0),
+                (this.topRightValue = 0),
+                (this.bottomLeftValue = 0),
+                (this.bottomRightValue = 0),
+                (this.$refs.effect.style.borderRadius = borderRadiu + "px");
         },
 
         topLeftFun(topLeftValue) {
@@ -225,17 +228,16 @@ export default {
             this.$refs.effect.style.borderBottomRightRadius = bottomRightValue + "px";
         },
         //未完成
-        borderFun(borderValue) {
-            this.$refs.effect.style.border = borderValue + "px";
-        },
-        //边框样式未完成
-        //未完成
-        borderColorFun(borColor) {
-            this.$refs.effect.style.borderColor = borColor;
+        borderFun() {
+            this.$refs.effect.style.border = `${this.borderValue}px ${this.model} ${this.borderColor}`;
         },
 
         bgColorFun(bgColor) {
             this.$refs.effect.style.backgroundColor = bgColor;
+        },
+
+        optionFun(value) {
+            console.log(value);
         },
     },
 };
