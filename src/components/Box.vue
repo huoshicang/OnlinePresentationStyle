@@ -6,25 +6,11 @@
             <div class="item">
                 <div class="itelli">
                     <span>height</span>
-                    <Slider
-                        class="Slider"
-                        v-model="heightValue"
-                        show-input
-                        :max="max"
-                        :min="min"
-                        @on-input="heightFun(heightValue)"
-                    ></Slider>
+                    <Slider class="Slider" v-model="heightValue" show-input :max="max" :min="min" @on-input="heightFun"></Slider>
                 </div>
                 <div class="itelli">
                     <span>width</span>
-                    <Slider
-                        class="Slider"
-                        v-model="widthValue"
-                        show-input
-                        :max="max"
-                        :min="min"
-                        @on-input="widthFun(widthValue)"
-                    ></Slider>
+                    <Slider class="Slider" v-model="widthValue" show-input :max="max" :min="min" @on-input="widthFun"></Slider>
                 </div>
                 <div class="itelli">
                     <span>radio</span>
@@ -34,7 +20,7 @@
                         :max="borderRadiuMax"
                         :min="borderRadiuMin"
                         show-input
-                        @on-input="radiuFun(borderRadiu)"
+                        @on-input="radiuFun"
                     ></Slider>
                 </div>
                 <div class="itelli">
@@ -44,7 +30,7 @@
                         v-model="topLeftValue"
                         :max="borderRadiuMax"
                         :min="borderRadiuMin"
-                        @on-input="topLeftFun(topLeftValue)"
+                        @on-input="topLeftFun"
                     ></Slider>
                     <span>top right</span>
                     <Slider
@@ -52,7 +38,7 @@
                         v-model="topRightValue"
                         :max="borderRadiuMax"
                         :min="borderRadiuMin"
-                        @on-input="topRightFun(topRightValue)"
+                        @on-input="topRightFun"
                     ></Slider>
                 </div>
                 <div class="itelli">
@@ -62,7 +48,7 @@
                         v-model="bottomLeftValue"
                         :max="borderRadiuMax"
                         :min="borderRadiuMin"
-                        @on-input="bottomLeftFun(bottomLeftValue)"
+                        @on-input="bottomLeftFun"
                     ></Slider>
                     <span>bottom right</span>
                     <Slider
@@ -70,7 +56,7 @@
                         v-model="bottomRightValue"
                         :max="borderRadiuMax"
                         :min="borderRadiuMin"
-                        @on-input="bottomRightFun(bottomRightValue)"
+                        @on-input="bottomRightFun"
                     ></Slider>
                 </div>
                 <div class="itelli last">
@@ -82,8 +68,10 @@
                     <ColorPicker class="color" v-model="borderColor" alpha @on-change="borderFun" />
                 </div>
                 <div class="itelli">
-                    <span>backgroundColor</span>
-                    <ColorPicker v-model="bgColor" alpha @on-change="bgColorFun(bgColor)" />
+                    <div>
+                        <span style="display: inline-block">backgroundColor</span>&nbsp;&nbsp;&nbsp;
+                        <ColorPicker v-model="bgColor" alpha @on-change="bgColorFun" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,6 +84,9 @@ import {} from "vue";
 
 <script lang="ts">
 export default {
+    mounted() {
+        this.$refs.effect.style.border = "8px dotted rgba(0, 0, 0, 0.5)";
+    },
     data() {
         return {
             // 通用最大最校
@@ -153,23 +144,23 @@ export default {
                     label: "3D outset",
                 },
             ],
-            model: "none",
+            model: "dotted",
 
-            borderValue: 10,
+            borderValue: 8,
             borderColor: "rgba(0, 0,0, 0.5)",
             bgColor: "rgba(166, 166, 166, 1.0)",
         };
     },
     methods: {
-        heightFun(heightValue) {
-            this.$refs.effect.style.height = heightValue + "px";
+        heightFun() {
+            this.$refs.effect.style.height = this.heightValue + "px";
         },
 
-        widthFun(widthValue) {
-            this.$refs.effect.style.width = widthValue + "px";
+        widthFun() {
+            this.$refs.effect.style.width = this.widthValue + "px";
         },
 
-        radiuFun(borderRadiu) {
+        radiuFun() {
             let heights = this.heightValue / 2;
             let widths = this.widthValue / 2;
             if (heights < widths || heights == widths) {
@@ -181,10 +172,10 @@ export default {
                 (this.topRightValue = 0),
                 (this.bottomLeftValue = 0),
                 (this.bottomRightValue = 0),
-                (this.$refs.effect.style.borderRadius = borderRadiu + "px");
+                (this.$refs.effect.style.borderRadius = this.borderRadiu + "px");
         },
 
-        topLeftFun(topLeftValue) {
+        topLeftFun() {
             let heights = this.heightValue / 2;
             let widths = this.widthValue / 2;
             if (heights < widths || heights == widths) {
@@ -192,10 +183,10 @@ export default {
             } else if (heights > widths) {
                 this.borderRadiuMax = widths;
             }
-            this.$refs.effect.style.borderTopLeftRadius = topLeftValue + "px";
+            this.$refs.effect.style.borderTopLeftRadius = this.topLeftValue + "px";
         },
 
-        topRightFun(topRightValue) {
+        topRightFun() {
             let heights = this.heightValue / 2;
             let widths = this.widthValue / 2;
             if (heights < widths || heights == widths) {
@@ -203,10 +194,10 @@ export default {
             } else if (heights > widths) {
                 this.borderRadiuMax = widths;
             }
-            this.$refs.effect.style.borderTopRightRadius = topRightValue + "px";
+            this.$refs.effect.style.borderTopRightRadius = this.topRightValue + "px";
         },
 
-        bottomLeftFun(bottomLeftValue) {
+        bottomLeftFun() {
             let heights = this.heightValue / 2;
             let widths = this.widthValue / 2;
             if (heights < widths || heights == widths) {
@@ -214,10 +205,10 @@ export default {
             } else if (heights > widths) {
                 this.borderRadiuMax = widths;
             }
-            this.$refs.effect.style.borderBottomLeftRadius = bottomLeftValue + "px";
+            this.$refs.effect.style.borderBottomLeftRadius = this.bottomLeftValue + "px";
         },
 
-        bottomRightFun(bottomRightValue) {
+        bottomRightFun() {
             let heights = this.heightValue / 2;
             let widths = this.widthValue / 2;
             if (heights < widths || heights == widths) {
@@ -225,19 +216,14 @@ export default {
             } else if (heights > widths) {
                 this.borderRadiuMax = widths;
             }
-            this.$refs.effect.style.borderBottomRightRadius = bottomRightValue + "px";
+            this.$refs.effect.style.borderBottomRightRadius = this.bottomRightValue + "px";
         },
-        //未完成
         borderFun() {
             this.$refs.effect.style.border = `${this.borderValue}px ${this.model} ${this.borderColor}`;
         },
 
-        bgColorFun(bgColor) {
-            this.$refs.effect.style.backgroundColor = bgColor;
-        },
-
-        optionFun(value) {
-            console.log(value);
+        bgColorFun() {
+            this.$refs.effect.style.backgroundColor = this.bgColor;
         },
     },
 };
@@ -255,9 +241,10 @@ export default {
         width: 300px;
     }
     .item {
+        margin-top: -85px;
         width: 300px;
         flex-wrap: wrap;
-        transform: translateX(-257px);
+        transform: translateX(-125px) scale(0.5);
     }
 }
 .options {
@@ -269,7 +256,6 @@ export default {
 .effect {
     width: 400px;
     height: 400px;
-    box-shadow: 0 0 10px #000000;
 }
 .options .item {
     display: flex;

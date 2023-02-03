@@ -143,8 +143,12 @@ onMounted(() => {
         width: 300px;
     }
     .item {
-        width: 300px;
+        width: 400px;
         flex-wrap: wrap;
+        justify-content: center;
+    }
+    .item .itelli {
+        margin: 21px 25px;
     }
 }
 .options {
@@ -168,12 +172,11 @@ onMounted(() => {
     line-height: 30px;
 }
 .item {
-    /* flex: 8; */
     display: flex;
-    align-items: center;
+    /* align-items: center;
     justify-content: space-evenly;
     height: 400px;
-    width: 1050px;
+    width: 1050px; */
 }
 .item .itelli {
     height: 400px;

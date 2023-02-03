@@ -5,15 +5,9 @@
             <h1 ref="h1">离无歌</h1>
             <div class="item">
                 <div class="size">
-                    大小<Slider
-                        style="width: 700px"
-                        v-model="value1"
-                        :max="max"
-                        @on-input="sizeFun(value1)"
-                        :show-stops="showStops"
-                    >
+                    大小<Slider style="width: 700px" v-model="value1" :max="max" @on-input="sizeFun" :show-stops="showStops">
                     </Slider>
-                    单位<Select v-model="sizeModel" style="width: 65px" @on-change="selectFun(sizeModel)">
+                    单位<Select v-model="sizeModel" style="width: 65px" @on-change="selectFun">
                         <Option v-for="item in sizeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                     </Select>
                 </div>
@@ -26,14 +20,14 @@
                 </div>
                 <div class="itelli">
                     <div>
-                        加粗：<Select v-model="weightModel" class="weight" @on-change="weighttFun(weightModel)">
+                        加粗：<Select v-model="weightModel" class="weight" @on-change="weighttFun">
                             <Option v-for="item in weightList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                         </Select>
                     </div>
                     <div>倾斜：<Switch class="switch" v-model="obliqueValue" @on-change="obliqueFun" /></div>
                 </div>
                 <div class="itelli">
-                    <div>字体颜色：<ColorPicker style="width: 250px" v-model="color" alpha @on-change="colorFun(color)" /></div>
+                    <div>字体颜色：<ColorPicker style="width: 250px" v-model="color" alpha @on-change="colorFun" /></div>
                 </div>
             </div>
         </div>
@@ -136,11 +130,11 @@ export default {
     },
 
     methods: {
-        sizeFun(val) {
-            this.$refs.h1.style.fontSize = val + this.sizeModel;
+        sizeFun() {
+            this.$refs.h1.style.fontSize = this.value1 + this.sizeModel;
         },
-        selectFun(model) {
-            if (model == "px") {
+        selectFun() {
+            if (this.sizeModel == "px") {
                 this.max = 300;
                 this.value1 = 50;
                 this.showStops = !this.showStops;
@@ -149,7 +143,7 @@ export default {
                 this.value1 = 2;
                 this.showStops = !this.showStops;
             }
-            this.$refs.h1.style.fontSize = this.value1 + model;
+            this.$refs.h1.style.fontSize = this.value1 + this.sizeModel;
         },
         decoration(val) {
             if (val == "overline") {
@@ -178,8 +172,8 @@ export default {
                 }
             }
         },
-        weighttFun(val) {
-            this.$refs.h1.style.fontWeight = val;
+        weighttFun() {
+            this.$refs.h1.style.fontWeight = this.weightModel;
         },
         obliqueFun() {
             if (this.obliqueValue) {
@@ -188,8 +182,8 @@ export default {
                 this.$refs.h1.style.fontStyle = "";
             }
         },
-        colorFun(val) {
-            this.$refs.h1.style.color = val;
+        colorFun() {
+            this.$refs.h1.style.color = this.color;
         },
     },
 };
