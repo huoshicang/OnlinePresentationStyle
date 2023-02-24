@@ -133,24 +133,6 @@ onMounted(() => {
 </script>
 
 <style scoped lange="less">
-@media (max-width: 1000px) {
-    .options {
-        flex-direction: column;
-        align-items: center;
-    }
-    .effect {
-        flex: none;
-        width: 300px;
-    }
-    .item {
-        width: 400px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .item .itelli {
-        margin: 21px 25px;
-    }
-}
 .options {
     display: flex;
     align-items: center;

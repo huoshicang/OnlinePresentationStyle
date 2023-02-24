@@ -190,23 +190,6 @@ export default {
 </script>
 
 <style scoped lange="less">
-@media (max-width: 1000px) {
-    .options {
-        flex-direction: column;
-        align-items: center;
-    }
-    .item {
-        width: 300px;
-        flex-wrap: wrap;
-        transform: translateX(-257px);
-    }
-    .options .item .size {
-        flex-direction: column;
-    }
-    .options .item .itelli {
-        flex-direction: column;
-    }
-}
 .options {
     display: flex;
     align-items: center;

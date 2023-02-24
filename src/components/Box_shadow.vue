@@ -71,23 +71,6 @@ export default {
 </script>
 
 <style scoped lange="less">
-@media (max-width: 1000px) {
-    .options {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 127px;
-    }
-    .effect {
-        flex: none;
-        width: 300px;
-    }
-    .item {
-        margin-top: -50px;
-        width: 300px;
-        flex-wrap: wrap;
-        transform: translateX(-125px) scale(0.5);
-    }
-}
 .options {
     height: 400px;
     display: flex;

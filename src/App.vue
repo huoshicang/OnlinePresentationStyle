@@ -66,19 +66,6 @@ const cli = (item: any, index: number) => {
 </script>
 
 <style scoped lange="less">
-@media (max-width: 1000px) {
-    .top {
-        margin: 50px;
-    }
-    .top ul {
-        flex-direction: column;
-    }
-    .buttom {
-        height: 1728px;
-        width: 600px;
-    }
-}
-
 .main {
     display: flex;
     width: 100%;
